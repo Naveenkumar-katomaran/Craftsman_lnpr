@@ -1,0 +1,55 @@
+# services:
+#   craftsman_lnpr:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#     container_name: craftsman_lnpr
+#     restart: unless-stopped
+#     env_file:
+#       - .env
+#     # environment:
+#       # - RTSP_URL=rtsp://172.22.147.211:8080/h264.sdp
+#       # - FRAME_SKIP=10
+#       # - LP_CONF_THRESHOLD=0.6
+#       # - OCR_CONF_THRESHOLD=0.7
+#       # - MOTION_THRESHOLD=0.01
+#       # - LOG_LEVEL=INFO
+#     volumes:
+#       - ./lnpr_outputs:/app/lnpr_outputs
+#       - ./lp_detection:/app/lp_detection
+#       - ./ocr:/app/ocr
+#       - ./video:/app/video
+
+
+services:
+  craftsman_lnpr_entry:
+    image: lnpr_production-craftsman_lnpr:latest
+    container_name: craftsman_lnpr_entry
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - RTSP_URL=rtsp://admin:Fr@123456@192.168.12.202:554/media/video1
+      - CAMERA_ID=83dde245-5df6-4211-aa4d-cef91be9e9d1
+    volumes:
+      - ./lnpr_outputs/entry:/app/lnpr_outputs
+      - ./lp_detection:/app/lp_detection
+      - ./ocr:/app/ocr
+      - ./video/entry:/app/video
+      - ./logs :/app/logs
+
+  craftsman_lnpr_exit:
+    image: lnpr_production-craftsman_lnpr:latest
+    container_name: craftsman_lnpr_exit
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - RTSP_URL=rtsp://admin:Fr@123456@192.168.12.203:554/media/video1
+      - CAMERA_ID=ec550677-fa5a-46f9-9137-03b9625469fc
+    volumes:
+      - ./lnpr_outputs/exit:/app/lnpr_outputs
+      - ./lp_detection:/app/lp_detection
+      - ./ocr:/app/ocr
+      - ./video/exit:/app/video
+      - ./logs :/app/logs
