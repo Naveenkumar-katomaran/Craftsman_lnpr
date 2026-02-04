@@ -18,7 +18,7 @@ jobs:
     env:
       REGISTRY: ghcr.io
       # IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/craftsman_lnpr
-      IMAGE_NAME: ghcr.io/gokulkato2001/craftsman_lnpr
+      IMAGE_NAME: ghcr.io/naveenkumar-katomaran/craftsman_lnpr
 
     steps:
     - name: Checkout code
